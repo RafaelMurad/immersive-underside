@@ -1,0 +1,389 @@
+/* ============================================
+   STRANGER THINGS VISUAL EFFECTS
+   ============================================ */
+
+/* ---- NEON GLOW TEXT EFFECTS ---- */
+
+.neon-text {
+  color: #fff;
+  text-shadow:
+    /* White inner core */
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    /* Red outer glow - increasing radii */
+    0 0 42px var(--st-red),
+    0 0 82px var(--st-red),
+    0 0 92px var(--st-red),
+    0 0 102px var(--st-red),
+    0 0 151px var(--st-red);
+}
+
+.neon-text-pink {
+  color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px var(--neon-pink),
+    0 0 82px var(--neon-pink),
+    0 0 92px var(--neon-pink);
+}
+
+.neon-text-cyan {
+  color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px var(--neon-cyan),
+    0 0 82px var(--neon-cyan),
+    0 0 92px var(--neon-cyan);
+}
+
+.neon-text-subtle {
+  color: #fff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px var(--st-red),
+    0 0 20px var(--st-red);
+}
+
+/* Flickering animation for faulty neon sign feel */
+@keyframes neon-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px var(--st-red),
+      0 0 82px var(--st-red),
+      0 0 92px var(--st-red);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+.flickering-neon {
+  animation: neon-flicker 1.5s infinite alternate;
+}
+
+/* Subtle flicker - less aggressive */
+@keyframes neon-pulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 7px #fff,
+      0 0 42px var(--st-red),
+      0 0 82px var(--st-red);
+  }
+  50% {
+    opacity: 0.9;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 30px var(--st-red),
+      0 0 60px var(--st-red);
+  }
+}
+
+.pulsing-neon {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* ---- CRT SCANLINE OVERLAY ---- */
+
+.crt-overlay {
+  position: relative;
+}
+
+.crt-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+}
+
+/* CRT with curved edges */
+.crt-screen {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 100px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.crt-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+}
+
+/* ---- FILM GRAIN EFFECT ---- */
+
+.film-grain {
+  position: relative;
+  overflow: hidden;
+}
+
+.film-grain::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  animation: grain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(7%, -25%); }
+  50% { transform: translate(-25%, 10%); }
+  70% { transform: translate(0%, 15%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* Lighter grain for overlay use */
+.film-grain-light::after {
+  opacity: 0.03;
+}
+
+/* ---- GLITCH TEXT EFFECT ---- */
+
+.glitch {
+  position: relative;
+  color: white;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--st-black);
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 #00fffc;
+  animation: glitch-1 2s infinite linear alternate-reverse;
+  clip-path: inset(40% 0 61% 0);
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: 1px 0 #fc00ff;
+  animation: glitch-2 3s infinite linear alternate-reverse;
+  clip-path: inset(10% 0 85% 0);
+}
+
+@keyframes glitch-1 {
+  0% { clip-path: inset(40% 0 61% 0); }
+  20% { clip-path: inset(92% 0 1% 0); }
+  40% { clip-path: inset(43% 0 1% 0); }
+  60% { clip-path: inset(25% 0 58% 0); }
+  80% { clip-path: inset(54% 0 7% 0); }
+  100% { clip-path: inset(58% 0 43% 0); }
+}
+
+@keyframes glitch-2 {
+  0% { clip-path: inset(24% 0 29% 0); }
+  20% { clip-path: inset(54% 0 20% 0); }
+  40% { clip-path: inset(9% 0 38% 0); }
+  60% { clip-path: inset(61% 0 4% 0); }
+  80% { clip-path: inset(13% 0 62% 0); }
+  100% { clip-path: inset(1% 0 83% 0); }
+}
+
+/* Glitch on hover only */
+.glitch-hover::before,
+.glitch-hover::after {
+  animation: none;
+  opacity: 0;
+}
+
+.glitch-hover:hover::before,
+.glitch-hover:hover::after {
+  opacity: 1;
+}
+
+.glitch-hover:hover::before {
+  animation: glitch-1 0.5s infinite linear alternate-reverse;
+}
+
+.glitch-hover:hover::after {
+  animation: glitch-2 0.7s infinite linear alternate-reverse;
+}
+
+/* ---- VIGNETTE EFFECT ---- */
+
+.vignette {
+  position: relative;
+}
+
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+  z-index: var(--z-overlay);
+}
+
+.vignette-intense::after {
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* ---- UPSIDE DOWN FILTER ---- */
+
+.upside-down-filter {
+  filter:
+    brightness(0.6)
+    contrast(1.3)
+    saturate(0.7)
+    hue-rotate(200deg);
+  transition: filter 1s ease-in-out;
+}
+
+/* ---- NEON BORDER GLOW ---- */
+
+.neon-border {
+  border: 2px solid var(--st-red);
+  box-shadow:
+    0 0 5px var(--st-red),
+    0 0 10px var(--st-red),
+    0 0 20px var(--st-red),
+    inset 0 0 5px var(--st-red);
+}
+
+.neon-border-cyan {
+  border: 2px solid var(--neon-cyan);
+  box-shadow:
+    0 0 5px var(--neon-cyan),
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    inset 0 0 5px var(--neon-cyan);
+}
+
+.neon-border-pink {
+  border: 2px solid var(--neon-pink);
+  box-shadow:
+    0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    inset 0 0 5px var(--neon-pink);
+}
+
+/* ---- RETRO BUTTON ---- */
+
+.retro-button {
+  position: relative;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid var(--st-red);
+  color: var(--st-white);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.retro-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--st-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-normal);
+  z-index: -1;
+}
+
+.retro-button:hover {
+  box-shadow:
+    0 0 10px var(--st-red),
+    0 0 20px var(--st-red),
+    0 0 40px var(--st-red);
+}
+
+.retro-button:hover::before {
+  transform: scaleX(1);
+}
+
+/* ---- CHROMATIC ABERRATION TEXT ---- */
+
+.chromatic-text {
+  position: relative;
+}
+
+.chromatic-text::before,
+.chromatic-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.chromatic-text::before {
+  color: #ff0000;
+  left: -2px;
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  opacity: 0.8;
+}
+
+.chromatic-text::after {
+  color: #00ffff;
+  left: 2px;
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  opacity: 0.8;
+}
+
+/* ---- REDUCED MOTION SUPPORT ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .flickering-neon,
+  .pulsing-neon {
+    animation: none;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    animation: none;
+    display: none;
+  }
+
+  .film-grain::after {
+    animation: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

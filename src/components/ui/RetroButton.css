@@ -1,0 +1,86 @@
+.retro-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid var(--st-red);
+  color: var(--st-white);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.retro-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--st-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-normal);
+  z-index: -1;
+}
+
+.retro-button:hover {
+  box-shadow:
+    0 0 10px var(--st-red),
+    0 0 20px var(--st-red),
+    0 0 40px var(--st-red);
+}
+
+.retro-button:hover::before {
+  transform: scaleX(1);
+}
+
+.retro-button:active {
+  transform: scale(0.98);
+}
+
+/* Variants */
+.retro-button--cyan {
+  border-color: var(--neon-cyan);
+}
+
+.retro-button--cyan::before {
+  background: var(--neon-cyan);
+}
+
+.retro-button--cyan:hover {
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan);
+  color: var(--st-black);
+}
+
+.retro-button--pink {
+  border-color: var(--neon-pink);
+}
+
+.retro-button--pink::before {
+  background: var(--neon-pink);
+}
+
+.retro-button--pink:hover {
+  box-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
+}
+
+/* Sizes */
+.retro-button--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.retro-button--large {
+  padding: 1.25rem 3rem;
+  font-size: 1.25rem;
+}

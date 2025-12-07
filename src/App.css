@@ -1,0 +1,117 @@
+/* App-specific styles */
+
+.hero-buttons {
+  margin-top: var(--spacing-xl);
+}
+
+/* Effects Showcase */
+.showcase {
+  background: linear-gradient(180deg, var(--st-black) 0%, var(--upside-blue) 100%);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.effects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.effect-card {
+  background: rgba(10, 10, 10, 0.8);
+  padding: var(--spacing-lg);
+  border-radius: 8px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.effect-card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+  color: var(--st-white);
+  opacity: 0.7;
+}
+
+.effect-demo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.effect-demo p {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Button Showcase */
+.button-showcase {
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+}
+
+.button-showcase h3 {
+  margin-bottom: var(--spacing-lg);
+  font-size: 1.5rem;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Vignette Demo Section */
+.vignette-demo {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  background: var(--upside-blue);
+  text-align: center;
+}
+
+.vignette-demo h2 {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Footer */
+.footer {
+  padding: var(--spacing-xl) 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--st-black);
+}
+
+.motion-notice {
+  margin-top: var(--spacing-md);
+  font-size: 0.875rem;
+  color: var(--neon-cyan);
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .effects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
