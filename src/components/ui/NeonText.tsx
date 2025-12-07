@@ -1,4 +1,5 @@
-import type { ReactNode, ElementType } from 'react';
+import type { ReactNode } from 'react';
+import { createElement } from 'react';
 
 type NeonColor = 'red' | 'pink' | 'cyan' | 'subtle';
 
@@ -7,7 +8,7 @@ interface NeonTextProps {
   color?: NeonColor;
   flickering?: boolean;
   pulsing?: boolean;
-  as?: ElementType;
+  as?: 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'div';
   className?: string;
 }
 
@@ -19,7 +20,7 @@ export function NeonText({
   color = 'red',
   flickering = false,
   pulsing = false,
-  as: Component = 'span',
+  as = 'span',
   className = '',
 }: NeonTextProps) {
   const colorClass = {
@@ -35,9 +36,9 @@ export function NeonText({
     ? 'pulsing-neon'
     : '';
 
-  return (
-    <Component className={`${colorClass} ${animationClass} ${className}`}>
-      {children}
-    </Component>
+  return createElement(
+    as,
+    { className: `${colorClass} ${animationClass} ${className}` },
+    children
   );
 }

@@ -1,0 +1,115 @@
+.stranger-sequence {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--st-black);
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.sequence-overlay {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  will-change: transform;
+}
+
+.title-row {
+  display: flex;
+  justify-content: center;
+}
+
+.title-text {
+  color: var(--st-red);
+  text-shadow:
+    0 0 5px var(--st-red),
+    0 0 10px var(--st-red);
+}
+
+.title-letter,
+.subtitle-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  will-change: transform, opacity;
+  display: inline-block;
+}
+
+.title-letter {
+  font-size: clamp(2rem, 10vw, 8rem);
+  letter-spacing: 0.15em;
+}
+
+.subtitle-letter {
+  font-size: clamp(1.5rem, 6vw, 5rem);
+  letter-spacing: 0.2em;
+  color: var(--st-red);
+}
+
+.sequence-skip {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 20;
+}
+
+.sequence-skip:hover {
+  border-color: var(--st-white);
+  color: var(--st-white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sequence-skip:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title-letter {
+    letter-spacing: 0.08em;
+  }
+
+  .subtitle-letter {
+    letter-spacing: 0.1em;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .stranger-sequence {
+    animation: none;
+  }
+
+  .title-letter,
+  .subtitle-letter {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .title-container {
+    transform: scale(1) !important;
+  }
+}

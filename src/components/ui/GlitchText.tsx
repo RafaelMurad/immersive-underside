@@ -1,9 +1,9 @@
-import type { ElementType } from 'react';
+import { createElement } from 'react';
 
 interface GlitchTextProps {
   text: string;
   hoverOnly?: boolean;
-  as?: ElementType;
+  as?: 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'div';
   className?: string;
 }
 
@@ -14,14 +14,17 @@ interface GlitchTextProps {
 export function GlitchText({
   text,
   hoverOnly = false,
-  as: Component = 'span',
+  as = 'span',
   className = '',
 }: GlitchTextProps) {
   const glitchClass = hoverOnly ? 'glitch glitch-hover' : 'glitch';
 
-  return (
-    <Component className={`${glitchClass} ${className}`} data-text={text}>
-      {text}
-    </Component>
+  return createElement(
+    as,
+    {
+      className: `${glitchClass} ${className}`,
+      'data-text': text,
+    },
+    text
   );
 }
